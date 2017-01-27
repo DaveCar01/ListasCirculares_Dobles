@@ -2,13 +2,31 @@ package strc;
 
 public class Nodos
 {
-	    int dato;
-	 Nodos siguiente;
-	 Nodos anterior;
+	 protected int dato;
+	 protected Nodos siguiente;
+	 protected Nodos anterior;
 	public Nodos() {
 		super();
 		this.dato = dato;
 		this.siguiente = siguiente;
+		this.anterior = anterior;
+	}
+	public int getDato() {
+		return dato;
+	}
+	public void setDato(int dato) {
+		this.dato = dato;
+	}
+	public Nodos getSiguiente() {
+		return siguiente;
+	}
+	public void setSiguiente(Nodos siguiente) {
+		this.siguiente = siguiente;
+	}
+	public Nodos getAnterior() {
+		return anterior;
+	}
+	public void setAnterior(Nodos anterior) {
 		this.anterior = anterior;
 	}
 	
@@ -29,33 +47,5 @@ public class Nodos
 	}*/
 
 
-	/*public static String getDato() {
-		return dato;
-	}
-
-
-	public static void setDato(String dato) {
-		Nodos.dato = dato;
-	}
-
-
-	public Nodos getSiguiente() {
-		return siguiente;
-	}
-
-
-	public void setSiguiente(Nodos siguiente) {
-		this.siguiente = siguiente;
-	}
-
-
-	public Nodos getAnterior() {
-		return anterior;
-	}
-
-
-	public void setAnterior(Nodos anterior) {
-		this.anterior = anterior;
-	}*/
 	
 }

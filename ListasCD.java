@@ -5,9 +5,9 @@ import javax.swing.event.AncestorEvent;
 
 public class ListasCD
 {
-	Nodos primero;
-	Nodos ultimo;
-	//private int size;
+	protected Nodos primero;
+	protected Nodos ultimo;
+	protected long size;
 	
 	public ListasCD ()
 	{
@@ -34,7 +34,97 @@ public class ListasCD
 			ultimo= NuevoNodo; // pasa apuntar al primer nodo o nuevo
 			primero.anterior=ultimo;  // apunta al anteriro 
 		}
+		size++;
 	}
+	public void ingresarNodoalFinal( int lista)
+	{
+		Nodos NuevoNodo = new Nodos();
+		
+		NuevoNodo.dato= lista;
+		if ( ultimo == null)
+		{
+			ultimo = NuevoNodo; // nuevo se guarda dentro de ultimo
+			ultimo.anterior=ultimo;
+			NuevoNodo.siguiente = primero; //
+			ultimo= NuevoNodo;
+		}
+		else
+		{
+			primero.anterior= NuevoNodo; // el primero que apunta a ultimo que apunta al anterior que se asigne el valor de nuevo nodo
+			NuevoNodo.anterior=ultimo; // el nuevo nodo que apunta a anterior y a pasa apuntar al ultimo
+			NuevoNodo.siguiente=primero;  // el nuevo nodo que apunta al siguiente y a apunte hacia el primero
+			primero= NuevoNodo; // pasa apuntar al primer nodo o nuevo
+			ultimo.siguiente=primero;  // apunta al anteriro 
+		}
+		size++;
+	}
+	/*public void insertarAlInicio(int lista)
+	 {
+	    Nodos auxActual = new Nodos();
+        auxActual.setDato(lista);
+        if (estaVacia()) {
+            primero= auxActual; //al primero y al ultimo le das el mismo valor
+            ultimo=auxActual;  
+            ultimo.setSiguiente(primero);// ultimo apunta al primero los dos nodos apunta a un mismo nodo
+        } else{
+            auxActual.setSiguiente(primero); // el nuevo dato va a ser el primero 
+            primero= auxActual;
+            ultimo.setSiguiente(primero); // el ultimo apunta al primero
+        }
+        size++;
+		
+	}
+	
+	
+	public void insertarAlFinal(int lista)
+	 {
+	    Nodos auxActual = new Nodos();
+	    auxActual.setDato(lista);
+        if (estaVacia()) {
+            ultimo= auxActual; //al primero y al ultimo le das el mismo valor
+            primero=auxActual;  
+            primero.setSiguiente(ultimo);// primero apunta al ultimo los dos nodos apunta a un mismo nodo
+        } else{
+            auxActual.setSiguiente(ultimo); // el nuevo dato va a ser el ultimo 
+            primero= auxActual;
+            ultimo.setSiguiente(ultimo); // el primero apunta al ultimo
+        }
+        size++;
+		
+	}*/
+    
+	
+	public void ingresarmitad(int dato, int referencia)
+
+	{
+		Nodos nuevoMitad= new Nodos();
+		Nodos auxiliar = new Nodos();
+		Nodos auxiliar1= new Nodos();
+		
+		auxiliar= primero;
+		for(int i=0;i<size;i++ )
+		{
+			if(auxiliar.getDato()== referencia )
+			{
+				nuevoMitad.setDato(dato);					//toma el dato 
+				nuevoMitad.setSiguiente(auxiliar); // este apunta al aux
+				auxiliar1.setSiguiente(nuevoMitad);//el anterior del aux1 apunta al nuevomitad
+				nuevoMitad.setAnterior(auxiliar.getAnterior());// el anterior del nuevo nodo apunta al anteior del aux
+				auxiliar.setAnterior(nuevoMitad); //el anterior del aux apunta al nuevo nodo 
+				// el aux sirve para coger el anteior 
+				size ++;
+				return ;
+			}
+			else
+			{
+				//System.out.println("elemento no encotrado");
+				auxiliar1= auxiliar;
+				auxiliar=auxiliar.getSiguiente();
+			}
+		}
+		
+	}
+	
 	//recorre desde el ultimo al primerp
 	
 	public void buscarNodo(int lista)
@@ -48,7 +138,7 @@ public class ListasCD
 			{
 				encontrado = true;   //el nodo actual que permite rrecorrer la lista este obtiene el valor del ultimo dato 
 			}						// y recorre la lista ingresada asta encontrar el nodo correcpondiente
-			auxActual = auxActual.anterior;
+			auxActual = auxActual;
 			
 		}
 		while (auxActual != ultimo  && encontrado != true);//al momento que llegue a terminar el ciclo apunta al anterior 
@@ -57,7 +147,7 @@ public class ListasCD
 		{
 			//JOptionPane.showInputDialog("Nodo encontrado \n:"+encontrado);
 			//JOptionPane.showMessageDialog(null, "Nodo encontrado: \n ");
-			System.out.println("NODO ENCONTRADO \n:");
+			System.out.println("NODO ENCONTRADO \n:"+auxActual.getDato());
 		}
 		else{
 			//JOptionPane.showInputDialog("el nodo que busca no fue ingresado");
@@ -65,39 +155,7 @@ public class ListasCD
 			System.out.println("NODO NO ENCONTRADO \n:");
 		}
 	}
-	/*public int tamaño()
-	{
-		Nodos aux=primero;
-		while(aux.getSiguiente()!=primero)
-		{
-			size ++;
-			aux=aux.getSiguiente();
-		}
-		return size;
-		
-	}
-	public Nodos buscarNodo(int posicion){
-	    Nodos aux=primero;
-	    
-	    int cont=1;
-	    
-	    if(posicion <1 || posicion>tamaño()){
-	        System.out.println("La posicion insertada no es correcta");
-	        
-	    }else{
-	        while(aux.getSiguiente()!=primero){
-	            if (posicion == cont){
-
-	                return aux; 
-	            }
-
-	            aux=aux.getSiguiente();
-	            cont++;   
-	        }   
-	    }
-	    return aux;
-	    
-	}*/
+	
 	
 	public void eliminarNodo(int lista)
 	{
@@ -136,7 +194,7 @@ public class ListasCD
 	}
 	
 	
-	public void imprimirLista()
+	public void imprimirListaInicioFin()
 	{
 		Nodos actual = new Nodos();
 		actual = primero;
@@ -150,55 +208,29 @@ public class ListasCD
 		
 		
 	}
-	/*public String mostrarlistardeiniciofin(){
-		String salida="";
-		if(!estaVacia()){
-		salida+="<=> ";
-			Nodos aux = primero;
-			while(aux!=null){
-				salida= salida +"["+aux.getDato() + "]<=>";
-				aux=aux.siguiente;
-			}
-		}
-		return salida;
+	public void imprimirListaFinaInicio()
+	{
+		Nodos actual = new Nodos();
+		actual = ultimo;
+		
+		do {
+			//JOptionPane.showMessageDialog(null, actual.dato);
+			System.out.println(actual.dato);
+			actual= actual.anterior;
+			
+		}while(actual!= ultimo);
+		
+		
 	}
 	
-	public String mostrarlistardefininicio(){
-		String salida="";
-		if(!estaVacia()){
-		salida+="<=> ";
-			Nodos aux = ultimo;
-			while(aux!=null){
-				salida= salida +"["+aux.getDato() + "]<=>";
-				aux= aux.anterior;
-			}
-		}
-		return salida;
-	}*/
 	
 	
-	/*public boolean estaVacia(){
+	public boolean estaVacia(){
 		return (primero== null);
 	}
-	public Nodos buscarporDato(String dato){
-		Nodos aux=primero;
-		if (estaVacia()){
-			return null;
-			}
-		else {
-		while(aux!=null){
-			
-			if( aux.getDato().equalsIgnoreCase(dato)){
-				return aux;
-				}
-			aux=aux.getSiguiente();
-			}
-		
-		}
-		return null;		
-	}*/
 	
-/*public Nodos buscarporIndice(int indice){
+	
+	public Nodos buscarporIndice(int indice){
 		
 		Nodos aux=primero;
 		int cont=0;
@@ -215,5 +247,5 @@ public class ListasCD
 					}
 		return null;			
 		}
-	}*/
+	}
 }
